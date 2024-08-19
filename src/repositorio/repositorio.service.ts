@@ -1,11 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateRepositorioDto } from './dto/create-repositorio.dto';
 import { UpdateRepositorioDto } from './dto/update-repositorio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Repositorio } from './entities/repositorio.entity';
 
 @Injectable()
 export class RepositorioService {
-  create(createRepositorioDto: CreateRepositorioDto) {
-    return 'This action adds a new repositorio';
+
+  constructor(
+
+    @InjectRepository(Repositorio)
+    private readonly repositorioRepository: Repository<Repositorio>
+
+  ){}
+  
+  
+  async create(createRepositorioDto: CreateRepositorioDto) {
+    
+    try {
+      
+      const repositorio = this.repositorioRepository.create( createRepositorioDto );
+      await this.repositorioRepository.save(repositorio);
+
+      return repositorio;
+
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('Ayuda!');
+    }
+
   }
 
   findAll() {
