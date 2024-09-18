@@ -20,8 +20,11 @@ yarn install
 ```
 docker-compose up -d
 ```
-
-6. Levantar el proyecto
+6. Ejecutar SEED para llenar BD
+```
+http://localhost:3000/api/seed
+```
+7. Levantar el proyecto
 ```
 yarn start:dev
 ```

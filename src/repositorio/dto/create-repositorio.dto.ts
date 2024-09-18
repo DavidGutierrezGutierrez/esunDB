@@ -26,6 +26,11 @@ export class CreateRepositorioDto {
     @IsString()
     @IsOptional()
     comentario?: string //lo puedo crear
+    
+    @IsString({each: true})
+    @IsArray()
+    @IsOptional()
+    archivoComprimido?: string[] //lo puedo crear
 
     @IsString()
     @IsOptional()
